@@ -10,6 +10,4 @@ component文件夹的说明
 ####                  4.$border-color三角箭头的线条颜色
 ####                  5.$background-color三角箭头的中心颜色，如果和$border-color颜色一直则为实心三角型*           
 
-###想点击某个图片进入一个网页,比如我想点击github的icorn然后再进入www.github.com  
-[![image]](http://www.github.com/)  
-[image]: http://github.com/github.png "github"  
+[点击这里你可以链接到www.google.com](http://www.google.com)
