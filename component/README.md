@@ -1,4 +1,5 @@
-# component文件夹的说明
+=====component文件夹的说明
+
 ### 1、-arrow.scss对应是三角箭头样式可以是空心或实心
 ####    *  空心的三角箭头
 ####    *  一、1：为子元素设定定位上下文，父级设定position:relative;
