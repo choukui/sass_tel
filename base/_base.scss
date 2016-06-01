@@ -1,0 +1,162 @@
+//background,IE下也支持background-size属性
+@mixin background($url,$cover:cover){
+	background: url($url);
+	background-position: inherit;
+	background-repeat: no-repeat;
+	-webkit-background-size: $cover;
+	background-size: $cover;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src=$url,sizingMethod='scale');
+	-ms-filter:"progid:DXImageTransform.Microsoft.AlphaImageLoader(src=#{$url},sizingMethod='scale')";
+}
+
+//正方形
+@mixin square($def:100%){
+	width: $def;
+	height: $def;
+}
+@mixin lineHight($def:100%){
+	line-height: $def;
+}
+@mixin bdr-radius($radius:10px){
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	border-radius: $radius;
+}
+$baceFontCol:#999;
+@mixin baceBorderB($baceBorderCol:#e3e3e3){
+	border-bottom: 1px solid $baceBorderCol;
+}
+//块元素左右居中
+@mixin LRcenter($width){
+	width: $width + px;
+	margin: 0 auto;
+}
+//不同dpr对应不同字体
+@mixin font-dpr($font-size){
+	font-size: $font-size;/*no*/
+	[data-dpr="2"] & {
+		font-size: $font-size * 2;/*no*/
+	}
+	[data-dpr="3"] & {
+		font-size: $font-size * 3;/*no*/
+	}
+}
+//height等于line-height，用于文字居中
+@mixin lineHeightEQHeight($height){
+	height: $height;
+	line-height: $height;
+}
+
+/*
+ *兼容ie8的透明度写法
+*/
+@mixin opacity($opacity) {
+	opacity: $opacity;
+	$opacity-ie: $opacity * 100;
+	filter: alpha(opacity=$opacity-ie); //IE8
+}
+
+/*
+ *绝对定位
+*/
+@mixin pos-abs($top: null, $right: null, $bottom: null, $left: null) {
+	position: absolute;
+	top: $top;
+	right: $right;
+	bottom: $bottom;
+	left: $left;
+}
+//定义不同dpr下的不同边框
+//border
+@mixin border-dpr($border-size:1px,$border-style:solid,$border-color:#e3e3e3){
+	border: $border-size $border-style $border-color;/*no*/
+	[data-dpr="2"] & {
+		border: $border-size * 2 $border-style $border-color;/*no*/
+	}
+	[data-dpr="3"] & {
+		border: $border-size * 3 $border-style $border-color;/*no*/
+	}
+}
+//border-right
+@mixin borderR-dpr($border-size:1px,$border-style:solid,$border-color:#e3e3e3){
+	border-right: $border-size $border-style $border-color;/*no*/
+	[data-dpr="2"] & {
+		border-right: $border-size * 2 $border-style $border-color;/*no*/
+	}
+	[data-dpr="3"] & {
+		border-right: $border-size * 3 $border-style $border-color;/*no*/
+	}
+}
+//border-left
+@mixin borderL-dpr($border-size:1px,$border-style:solid,$border-color:#e3e3e3){
+	border-left: $border-size $border-style $border-color;/*no*/
+	[data-dpr="2"] & {
+		border-left: $border-size * 2 $border-style $border-color;/*no*/
+	}
+	[data-dpr="3"] & {
+		border-left: $border-size * 3 $border-style $border-color;/*no*/
+	}
+}
+//border-top
+@mixin borderT-dpr($border-size:1px,$border-style:solid,$border-color:#e3e3e3){
+	border-top: $border-size $border-style $border-color;/*no*/
+	[data-dpr="2"] & {
+		border-top: $border-size * 2 $border-style $border-color;/*no*/
+	}
+	[data-dpr="3"] & {
+		border-top: $border-size * 3 $border-style $border-color;/*no*/
+	}
+}
+//border-bottom
+@mixin borderB-dpr($border-size:1px,$border-style:solid,$border-color:#e3e3e3){
+	border-bottom: $border-size $border-style $border-color;/*no*/
+	[data-dpr="2"] & {
+		border-bottom: $border-size * 2 $border-style $border-color;/*no*/
+	}
+	[data-dpr="3"] & {
+		border-bottom: $border-size * 3 $border-style $border-color;/*no*/
+	}
+}
+
+
+/**
+ *  ##上下垂直居中center使用说明##
+ * 一、1：为子元素设定定位上下文，父级设定position:relative;
+ *     2：让子元素绝对居中于父容器
+ * 二、没有向 Sass mixin 传递参数，使用 CSS transform 属性实现居中效果
+ * 三、向 Sass mixin 传递了宽度，所以就使用负向 margin 处理水平位置，使用 CSS transform 处理垂直位置
+ * 四、向 Sass mixin 传递了高度，所以就使用负向 margin 处理垂直位置，使用 CSS transform 处理水平位置
+ *五、 向 Sass mixin 传递了高度和宽度，所以就使用负向 margin 处理水平和垂直位置
+ */
+@mixin center($width: null, $height: null) {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	@if not $width and not $height {
+		-webkit-transform: translate(-50%, -50%);
+		-moz-transform: translate(-50%, -50%);
+		-ms-transform: translate(-50%, -50%);
+		-o-transform: translate(-50%, -50%);
+		transform: translate(-50%, -50%);
+	} @else if $width and $height {
+		width: $width;/*no*/
+		height: $height;/*no*/
+		margin: -($width / 2) #{0 0} -($height / 2);/*no*/
+	} @else if not $height {
+		width: $width;/*no*/
+		margin-left: -($width / 2);/*no*/
+		-webkit-transform: translateY(-50%);
+		-moz-transform: translateY(-50%);
+		-ms-transform: translateY(-50%);
+		-o-transform: translateY(-50%);
+		transform: translateY(-50%);
+	} @else {
+		height: $height;/*no*/
+		margin-top: -($height / 2);/*no*/
+		-webkit-transform: translateX(-50%);
+		-moz-transform: translateX(-50%);
+		-ms-transform: translateX(-50%);
+		-o-transform: translateX(-50%);
+		transform: translateX(-50%);
+	}
+}

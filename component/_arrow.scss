@@ -1,0 +1,82 @@
+/**
+ *  ##空心的三角箭头##
+ *  一、1：为子元素设定定位上下文，父级设定position:relative;
+ *  二、假定子元素class="caret",用法 .caret{ left:xx; top:xx; @include caret(10px,2px,right,orange,orange);}
+ *  三、参数说明：1.$caret-width三角箭头的外层宽
+                  2.$border-width三角箭头的线宽
+                  3.$direction三角箭头的方向
+                  4.$border-color三角箭头的线条颜色
+                  5.$background-color三角箭头的中心颜色，如果和$border-color颜色一直则为实心三角型
+**/
+@mixin caret($caret-width,$border-width,$direction,$border-color,$background-color){
+	position: absolute;
+	&:before,
+	&:after {
+		content:"";
+		position: absolute;
+	}
+	@if $direction == top {
+		&:before {
+			top:0;
+			left: 0;
+			border-bottom: $caret-width solid $border-color;/*no*/
+			border-left: $caret-width solid transparent;/*no*/
+			border-right: $caret-width solid transparent;/*no*/
+		}
+		&:after {
+			left: $border-width;/*no*/
+			top: $border-width;/*no*/
+			border-bottom: ($caret-width - $border-width) solid $background-color;/*no*/
+			border-left: ($caret-width - $border-width) solid transparent;/*no*/
+			border-right: ($caret-width - $border-width) solid transparent;/*no*/
+		}
+	}
+	@else if $direction == right {
+		&:before {
+			top:0;
+			left: 0;
+			border-left: $caret-width solid $border-color;/*no*/
+			border-top: $caret-width solid transparent;/*no*/
+			border-bottom: $caret-width solid transparent;/*no*/
+		}
+		&:after {
+			left: 0;
+			top: $border-width;/*no*/
+			border-left: ($caret-width - $border-width) solid $background-color;/*no*/
+			border-top: ($caret-width - $border-width) solid transparent;/*no*/
+			border-bottom: ($caret-width - $border-width) solid transparent;/*no*/
+		}
+	}
+	@else if $direction == bottom {
+		&:before {
+			top:0;
+			left: 0;
+			border-top: $caret-width solid $border-color;/*no*/
+			border-left: $caret-width solid transparent;/*no*/
+			border-right: $caret-width solid transparent;/*no*/
+		}
+		&:after {
+			left: $border-width;/*no*/
+			top: 0;
+			border-top: ($caret-width - $border-width) solid $background-color;/*no*/
+			border-left: ($caret-width - $border-width) solid transparent;/*no*/
+			border-right: ($caret-width - $border-width) solid transparent;/*no*/
+		}
+	}
+	@else if $direction == left {
+		&:before {
+			top:0;
+			left: 0;
+			border-right: $caret-width solid $border-color;/*no*/
+			border-top: $caret-width solid transparent;/*no*/
+			border-bottom: $caret-width solid transparent;/*no*/
+		}
+		&:after {
+			left: $border-width;/*no*/
+			top: $border-width;/*no*/
+			border-right: ($caret-width - $border-width) solid $background-color;/*no*/
+			border-top: ($caret-width - $border-width) solid transparent;/*no*/
+			border-bottom: ($caret-width - $border-width) solid transparent;/*no*/
+		}
+	}
+}
